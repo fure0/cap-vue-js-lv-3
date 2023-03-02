@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="item in ask" 
+    <div v-for="item in this.$store.state.ask" 
          v-bind:key="item.id">
          {{ item.title }}
     </div>
@@ -8,23 +8,10 @@
 </template>
 
 <script>
-import { fetchAskList } from '../api/index.js';
 
 export default {
-  data() {
-    return {
-      ask: []
-    }
-  },
   created() {
-    var vm = this;
-    fetchAskList()
-      .then(function(response) {
-        vm.ask = response.data;
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    this.$store.dispatch('FETCH_ASK');
   }
 }
 </script>
